@@ -31,10 +31,12 @@ https://github.com/FastFingertips/flask-todo/assets/46646991/cafaba2c-5158-4402-
 - `app/__init__.py`: Initializes the Flask app and database, and registers Blueprints.
 - `app/models.py`: Contains database models for Todo items and user preferences.
 - `app/routes.py`: Contains route definitions for the main app functionality.
+- `app/utils.py`: Utility functions for the application (e.g., redirect handling).
 - `app/templates/`: Contains HTML templates for rendering the UI.
 - `config.py`: Configuration settings for the Flask app.
 - `manage.py`: Entry point for running the Flask app.
 - `requirements.txt`: Lists the dependencies required to run the app.
+- `vercel.json`: Configuration for deploying to Vercel.
 
 ## Setup and Installation
 
@@ -57,14 +59,10 @@ https://github.com/FastFingertips/flask-todo/assets/46646991/cafaba2c-5158-4402-
    pip install -r requirements.txt
    ```
 
-4. Initialize the database:
-   ```bash
-   python manage.py
-   ```
-
 ## Running the App
 
-To start the Flask development server, run:
+To start the Flask development server and initialize the database (on first run), use:
+
 ```bash
 python manage.py
 ```
@@ -73,10 +71,10 @@ By default, the app runs on `http://127.0.0.1:5000/`.
 
 ### Changing the Port Number
 
-To run the application on a different port, you can specify the port number when starting the server. For example, to run the app on port 8080, use:
+To run the application on a different port, use the Flask CLI:
 
 ```bash
-python manage.py run -p 8080
+flask run --port 8080
 ```
 
 You can also set the port number by modifying the `manage.py` file if needed. Open `manage.py` and locate the line that starts the Flask application, then add the `port` parameter:
