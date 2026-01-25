@@ -27,7 +27,7 @@ def create_app():
     # Create database tables and import models
     with app.app_context():
         # Import models after creating the app context
-        from app import models
+        from app import models  # noqa: F401
         # Create all database tables based on the models
         db.create_all()
 

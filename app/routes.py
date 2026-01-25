@@ -6,6 +6,8 @@ from app import db
 
 main = Blueprint('main', __name__)
 
+INDEX_ROUTE = 'main.index'
+
 @main.route("/")
 def index(): 
     defaults = {
@@ -58,7 +60,7 @@ def update_preferences():
     else:
         print(f"{__name__}: No preferences found to update")
 
-    return redirect(get_referer_or_default('main.index'))
+    return redirect(get_referer_or_default(INDEX_ROUTE))
 
 @main.route("/add/todo", methods=["POST"])
 def add_todo():
@@ -77,7 +79,7 @@ def add_todo():
     else:
         print(f"{__name__}: No title provided for new todo")
 
-    return redirect(get_referer_or_default('main.index'))
+    return redirect(get_referer_or_default(INDEX_ROUTE))
 
 @main.route("/todo/<int:todo_id>/status")
 def change_todo_status(todo_id):
@@ -91,7 +93,7 @@ def change_todo_status(todo_id):
     else:
         print(f"{__name__}: Todo {todo_id} not found")
 
-    return redirect(get_referer_or_default('main.index'))
+    return redirect(get_referer_or_default(INDEX_ROUTE))
 
 @main.route("/todo/<int:todo_id>/delete")
 def delete_todo(todo_id):
@@ -104,4 +106,4 @@ def delete_todo(todo_id):
     else:
         print(f"{__name__}: Todo {todo_id} not found")
 
-    return redirect(get_referer_or_default('main.index'))
+    return redirect(get_referer_or_default(INDEX_ROUTE))

@@ -17,6 +17,12 @@ class Todo(db.Model):
     complete = db.Column(db.Boolean)
     complated_date = db.Column(db.DateTime)
 
+    def __init__(self, title: str, created_date, complete: bool = False, complated_date = None):
+        self.title = title
+        self.created_date = created_date
+        self.complete = complete
+        self.complated_date = complated_date
+
 class Preferences(db.Model):
     """
     Represents user preferences for the to-do application.
@@ -29,3 +35,7 @@ class Preferences(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     theme = db.Column(db.String(80), nullable=False)
     sorting = db.Column(db.String(80), nullable=False)
+
+    def __init__(self, theme: str, sorting: str):
+        self.theme = theme
+        self.sorting = sorting
