@@ -1,5 +1,10 @@
 # Flask Todo App
 
+![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)
+![Flask](https://img.shields.io/badge/flask-%23000.svg?style=flat&logo=flask&logoColor=white)
+![License](https://img.shields.io/github/license/FastFingertips/flask-todo)
+![Repo Size](https://img.shields.io/github/repo-size/FastFingertips/flask-todo)
+
 This is a simple Todo application built with Flask, demonstrating the use of Flask Blueprints for modular design, SQLAlchemy for database interactions, and Bootstrap for basic styling.
 
 ## Features
