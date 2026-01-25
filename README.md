@@ -13,18 +13,16 @@ This is a simple Todo application built with Flask, demonstrating the use of Fla
 - Toggle completion status of todo items
 - Persist user preferences for theme (dark/light) and sorting order (ascending/descending)
 
-## Live Demo
+## Demo & Live Preview
 
-Experience the application live on your preferred platform:
+Experience the application live or watch the demo video:
 
 | Platform | Status | URL |
 | :--- | :--- | :--- |
 | **Vercel** | [![Vercel Status](https://img.shields.io/badge/Live-Vercel-000000?style=flat-square&logo=vercel)](https://flask-todo-demo.vercel.app) | [flask-todo-demo.vercel.app](https://flask-todo-demo.vercel.app) |
 | **Render** | [![Render Status](https://img.shields.io/badge/Live-Render-46E3B7?style=flat-square&logo=render)](https://flask-todo-ph8a.onrender.com) | [flask-todo-ph8a.onrender.com](https://flask-todo-ph8a.onrender.com) |
 
-## Demo
-
-Watch a short demo of the application in action:
+### Preview Video
 
 https://github.com/FastFingertips/flask-todo/assets/46646991/cafaba2c-5158-4402-bfde-04a8cdf464c0
 
