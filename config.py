@@ -2,7 +2,13 @@ import os
 
 APP_PATH = os.path.abspath(os.path.dirname(__file__))
 DB_NAME = "todo.db"
-DB_PATH = os.path.join(APP_PATH, DB_NAME)
+
+if os.environ.get('VERCEL'):
+    # Vercel file system is read-only except for /tmp
+    # Note: Data in /tmp is ephemeral and will be lost!
+    DB_PATH = os.path.join('/tmp', DB_NAME)
+else:
+    DB_PATH = os.path.join(APP_PATH, DB_NAME)
 
 class Config:
     """
