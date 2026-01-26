@@ -9,19 +9,22 @@ class Todo(db.Model):
         title (str): The title of the to-do item, which cannot be empty.
         created_date (datetime): The date and time when the to-do item was created.
         complete (bool): A flag indicating whether the to-do item is completed.
-        complated_date (datetime): The date and time when the to-do item was completed (if applicable).
+        completed_date (datetime): The date and time when the to-do item was completed (if applicable).
     """
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), nullable=False)
     created_date = db.Column(db.DateTime, nullable=False)
     complete = db.Column(db.Boolean)
-    complated_date = db.Column(db.DateTime)
+    completed_date = db.Column(db.DateTime)
 
-    def __init__(self, title: str, created_date, complete: bool = False, complated_date = None):
+    def __init__(self, title: str, created_date, complete: bool = False, completed_date = None):
         self.title = title
         self.created_date = created_date
         self.complete = complete
-        self.complated_date = complated_date
+        self.completed_date = completed_date
+
+    def __repr__(self):
+        return f'<Todo {self.id}: {self.title}>'
 
 class Preferences(db.Model):
     """
@@ -39,3 +42,6 @@ class Preferences(db.Model):
     def __init__(self, theme: str, sorting: str):
         self.theme = theme
         self.sorting = sorting
+
+    def __repr__(self):
+        return f'<Preferences {self.theme}/{self.sorting}>'

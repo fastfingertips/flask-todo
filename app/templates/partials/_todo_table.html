@@ -41,7 +41,7 @@
                 data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Click to change status">Completed</span>
         </a>
         <span class="text-muted small ms-2">
-          {{ todo.complated_date.strftime("%b %d, %H:%M") }}
+          {{ todo.completed_date.strftime("%b %d, %H:%M") }}
         </span>
         {% else %}
         <a href="/todo/{{ todo.id }}/status" class="text-decoration-none">

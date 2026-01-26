@@ -39,8 +39,10 @@ def add_todo():
     title = request.form.get("title")
     if title:
         new_todo = Todo(
-            title=title, complete=False, 
-            complated_date=None, created_date=datetime.now()
+            title=title, 
+            created_date=datetime.now(),
+            complete=False,
+            completed_date=None
         )
         db.session.add(new_todo)
         db.session.commit()
@@ -50,7 +52,7 @@ def add_todo():
 def change_todo_status(todo_id):
     todo = Todo.query.get_or_404(todo_id)
     todo.complete = not todo.complete
-    todo.complated_date = datetime.now() if todo.complete else None
+    todo.completed_date = datetime.now() if todo.complete else None
     db.session.commit()
     return redirect_back()
 
