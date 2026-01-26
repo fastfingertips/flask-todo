@@ -2,20 +2,20 @@
 
 {% block content %}
       <!-- FORM START -->
-      <form action="/add/todo" method="post">
+      <form action="/add/todo" method="post" class="mb-4">
         <div class="input-group">
-          <input type="text" class="form-control" name="title" placeholder="Enter Task" required>
-          <span class="input-group-btn">
-            <button type="submit" class="btn btn-default" >Add</button>
-          </span>
+          <input type="text" class="form-control app-input" name="title" placeholder="What needs to be done?" required>
+          <button type="submit" class="btn app-btn-success fw-semibold px-4" style="border-radius: 0 6px 6px 0;">
+            Add Task
+          </button>
         </div>
-       </span>
       </form>
       <!-- FORM END -->
       <hr>
       <!-- TABLE START -->
       {% if todos %}
-      <table class="table table-hover table-striped">
+      <div class="app-table-wrapper">
+      <table class="table table-hover align-middle mb-0">
         <thead>
           <tr>
             <th scope="col">ID</th>
@@ -49,21 +49,17 @@
             <td>{{ todo.title }}</td>
             <td>
               {% if todo.complete %}
-              <a href="/todo/{{ todo.id }}/status">
-                <span class="badge bg-success" 
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
-                data-bs-title="Click to change status">Complated</span></a>
-              
-              <span class="badge bg-secondary">
-                {{ todo.complated_date.strftime("%m/%d/%Y, %H:%M:%S") }}
+              <a href="/todo/{{ todo.id }}/status" class="text-decoration-none">
+                <span class="badge app-badge-success" 
+                      data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Click to change status">Completed</span>
+              </a>
+              <span class="text-muted small ms-2">
+                {{ todo.complated_date.strftime("%b %d, %H:%M") }}
               </span>
               {% else %}
-              <a href="/todo/{{ todo.id }}/status">
-                <span class="badge bg-danger text-white" 
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
-                data-bs-title="Click to change status">Not Complated</span>
+              <a href="/todo/{{ todo.id }}/status" class="text-decoration-none">
+                <span class="badge app-badge-danger" 
+                      data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Click to change status">Not Completed</span>
               </a>
               {% endif %}
             </td>
@@ -83,6 +79,7 @@
           {% endfor %}
         </tbody>
       </table>
+      </div>
       {% else %}
       <div class="alert alert-warning" role="alert">
         Any task not found!

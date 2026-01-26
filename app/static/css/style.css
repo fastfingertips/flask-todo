@@ -1,0 +1,129 @@
+:root {
+  --app-bg: #ffffff;
+  --app-text: #24292f;
+  --app-border: #d0d7de;
+  --app-header-bg: #f6f8fa;
+  --app-primary: #546e7a;
+  --app-success: #526d5b;
+  --app-danger: #a55b5b;
+  --app-success-bg: rgba(82, 109, 91, 0.1);
+  --app-danger-bg: rgba(165, 91, 91, 0.1);
+  --app-muted: #636c76;
+}
+
+[data-bs-theme="dark"] {
+  --app-bg: #0d1117;
+  --app-text: #c9d1d9;
+  --app-border: #30363d;
+  --app-header-bg: #161b22;
+  --app-primary: #538cc6;
+  --app-success: #4d7c58;
+  --app-danger: #da6767;
+  --app-success-bg: rgba(77, 124, 88, 0.15);
+  --app-danger-bg: rgba(218, 103, 103, 0.15);
+  --app-muted: #8b949e;
+}
+
+body {
+  background-color: var(--app-bg);
+  color: var(--app-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+.app-border {
+  border-color: var(--app-border) !important;
+}
+
+.app-header-bg {
+  background-color: var(--app-header-bg) !important;
+}
+
+.app-btn-primary {
+  background-color: var(--app-primary);
+  color: white;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+}
+
+.app-btn-primary:hover {
+  background-color: var(--app-primary);
+  opacity: 0.9;
+  color: white;
+}
+
+.app-btn-success {
+  background-color: var(--app-success);
+  color: white;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+}
+
+.app-btn-success:hover {
+  background-color: var(--app-success);
+  opacity: 0.9;
+  color: white;
+}
+
+.app-btn-secondary {
+  color: var(--app-text);
+  background-color: var(--app-header-bg);
+  border-color: var(--app-border) !important;
+  border-radius: 6px;
+}
+
+.app-btn-secondary:hover {
+  background-color: var(--app-border);
+  color: var(--app-text);
+}
+
+.app-badge-success {
+  background-color: var(--app-success-bg);
+  color: var(--app-success);
+  border: 1px solid var(--app-success-bg);
+}
+
+.app-badge-danger {
+  background-color: var(--app-danger-bg);
+  color: var(--app-danger);
+  border: 1px solid var(--app-danger-bg);
+}
+
+.app-table-wrapper {
+  border: 1px solid var(--app-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.app-table-wrapper thead {
+  background-color: var(--app-header-bg);
+  border-bottom: 1px solid var(--app-border);
+}
+
+.app-table-wrapper table tbody tr:nth-of-type(odd) > * {
+  background-color: rgba(175, 184, 193, 0.12) !important;
+}
+
+[data-bs-theme="dark"] .app-table-wrapper table tbody tr:nth-of-type(odd) > * {
+  background-color: rgba(110, 118, 129, 0.1) !important;
+}
+
+/* Ensure borders look sharp */
+.app-table-wrapper table td, .app-table-wrapper table th {
+  border-bottom: 1px solid var(--app-border);
+}
+
+.app-table-wrapper table tr:last-child td {
+  border-bottom: 0;
+}
+
+.app-input {
+  border-color: var(--app-border);
+  background-color: var(--app-bg);
+  color: var(--app-text);
+  border-radius: 6px 0 0 6px !important;
+}
+
+.app-input:focus {
+  background-color: var(--app-bg);
+  color: var(--app-text);
+  border-color: var(--app-primary);
+  box-shadow: none;
+}

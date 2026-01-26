@@ -95,6 +95,24 @@ def change_todo_status(todo_id):
 
     return redirect(get_referer_or_default(INDEX_ROUTE))
 
+@main.app_errorhandler(404)
+def page_not_found(e):
+    preferences = Preferences.query.first()
+    context = {
+        "theme": preferences.theme if preferences else "dark",
+        "sorting": preferences.sorting if preferences else "desc"
+    }
+    return render_template("404.html", **context), 404
+
+@main.app_errorhandler(500)
+def internal_server_error(e):
+    preferences = Preferences.query.first()
+    context = {
+        "theme": preferences.theme if preferences else "dark",
+        "sorting": preferences.sorting if preferences else "desc"
+    }
+    return render_template("500.html", **context), 500
+
 @main.route("/todo/<int:todo_id>/delete")
 def delete_todo(todo_id):
     todo = Todo.query.filter_by(id=todo_id).first()
