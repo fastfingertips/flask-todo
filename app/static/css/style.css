@@ -153,6 +153,25 @@ body {
   animation: slideDown 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 
+/* Footer & Contrast Optimization */
+.footer-text, .footer-link {
+    color: #5a6268 !important; /* Standart griyi biraz daha koyulaştırdık (6.4:1 kontrast) */
+}
+
+.footer-muted {
+    font-size: 0.75rem;
+    color: #5a6268 !important;
+}
+
+[data-theme="dark"] .footer-text, 
+[data-theme="dark"] .footer-link,
+[data-theme="dark"] .footer-muted {
+    color: #adb5bd !important;
+}
+
+.footer-link:hover {
+    color: var(--app-primary) !important;
+}
 @keyframes slideDown {
   from { transform: translateY(-100%); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
