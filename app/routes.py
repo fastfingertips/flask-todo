@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, g
+from flask import Blueprint, render_template, request, g, flash
 from app.utils import redirect_back
 from app.models import Todo, Preferences
 from datetime import datetime
@@ -46,6 +46,7 @@ def add_todo():
         )
         db.session.add(new_todo)
         db.session.commit()
+        flash(f"Task '{title}' has been added!", "success")
     return redirect_back()
 
 @main.route("/todo/<int:todo_id>/status")
@@ -54,13 +55,18 @@ def change_todo_status(todo_id):
     todo.complete = not todo.complete
     todo.completed_date = datetime.now() if todo.complete else None
     db.session.commit()
+    
+    status = "completed" if todo.complete else "re-opened"
+    flash(f"Task status updated to {status}.", "info")
     return redirect_back()
 
 @main.route("/todo/<int:todo_id>/delete")
 def delete_todo(todo_id):
     todo = Todo.query.get_or_404(todo_id)
+    title = todo.title
     db.session.delete(todo)
     db.session.commit()
+    flash(f"Task '{title}' has been deleted.", "danger")
     return redirect_back()
 
 @main.route("/preferences", methods=["GET"])
@@ -68,6 +74,7 @@ def update_preferences():
     g.prefs.theme = request.args.get("theme") or g.prefs.theme
     g.prefs.sorting = request.args.get("sort") or g.prefs.sorting
     db.session.commit()
+    flash("Preferences updated.", "secondary")
     return redirect_back()
 
 # --- ERROR HANDLERS ---

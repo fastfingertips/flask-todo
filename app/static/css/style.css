@@ -3,6 +3,7 @@
   --app-text: #24292f;
   --app-border: #d0d7de;
   --app-header-bg: #f6f8fa;
+  --app-header-bg-rgb: 246, 248, 250;
   --app-primary: #546e7a;
   --app-success: #526d5b;
   --app-danger: #a55b5b;
@@ -126,4 +127,83 @@ body {
   color: var(--app-text);
   border-color: var(--app-primary);
   box-shadow: none;
+}
+
+.flash-container {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.app-flash-toast {
+  pointer-events: auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  border: 1px solid rgba(0,0,0,0.05);
+  font-size: 0.9rem;
+  font-weight: 500;
+  animation: slideDown 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+[data-bs-theme="dark"] .app-flash-toast {
+  box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+}
+
+.app-flash-toast .btn-close {
+  padding: 0.8rem;
+  font-size: 0.6rem;
+  opacity: 0.4;
+  background-size: 0.6rem;
+}
+
+.app-flash-toast .btn-close:hover {
+  opacity: 1;
+}
+
+.app-flash-toast .btn-close:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+/* Empty State Styling */
+.empty-state {
+  padding: 80px 20px;
+  text-align: center;
+  background-color: var(--app-header-bg);
+  border: 1px dashed var(--app-border);
+  border-radius: 16px;
+  margin-top: 2rem;
+}
+
+.empty-state-icon {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 24px;
+  opacity: 0.6;
+}
+
+.empty-state h3 {
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--app-text);
+}
+
+.empty-state p {
+  color: var(--app-muted);
+  max-width: 400px;
+  margin: 0 auto;
 }
