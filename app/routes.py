@@ -1,15 +1,16 @@
-from flask import Blueprint, render_template, request, redirect, g
-from app.utils import get_referer_or_default
+from flask import Blueprint, render_template, request, g
+from app.utils import redirect_back
 from app.models import Todo, Preferences
 from datetime import datetime
 from app import db
 
 main = Blueprint('main', __name__)
 
-INDEX_ROUTE = 'main.index'
+# --- REQUEST HOOKS ---
 
-def _get_prefs():
-    """Fetch or initialize preferences using flask.g for request caching."""
+@main.before_app_request
+def load_preferences():
+    """Load or initialize user preferences into flask.g before every request."""
     if 'prefs' not in g:
         prefs = Preferences.query.first()
         if not prefs:
@@ -17,23 +18,21 @@ def _get_prefs():
             db.session.add(prefs)
             db.session.commit()
         g.prefs = prefs
-    return g.prefs
 
 @main.app_context_processor
 def inject_preferences():
-    prefs = _get_prefs()
-    return {"theme": prefs.theme, "sorting": prefs.sorting}
+    """Context processor to make theme/sorting globally available in templates."""
+    return {"theme": g.prefs.theme, "sorting": g.prefs.sorting}
 
-def _redirect_to_back():
-    """Redirect helper used by multiple routes."""
-    return redirect(get_referer_or_default(INDEX_ROUTE))
+# --- VIEWS ---
 
 @main.route("/")
 def index(): 
-    prefs = _get_prefs()
-    sort_attr = Todo.created_date.desc() if prefs.sorting == "desc" else Todo.created_date.asc()
-    todos = Todo.query.order_by(sort_attr).all()
+    # Dynamically sort based on preferences
+    todos = Todo.query.order_by(getattr(Todo.created_date, g.prefs.sorting)()).all()
     return render_template("index.html", todos=todos)
+
+# --- ACTIONS ---
 
 @main.route("/add/todo", methods=["POST"])
 def add_todo():
@@ -45,36 +44,31 @@ def add_todo():
         )
         db.session.add(new_todo)
         db.session.commit()
-        print(f"{__name__}: Added new todo with title={title}")
-    return _redirect_to_back()
+    return redirect_back()
 
 @main.route("/todo/<int:todo_id>/status")
 def change_todo_status(todo_id):
-    todo = Todo.query.filter_by(id=todo_id).first()
-    if todo:
-        todo.complete = not todo.complete
-        todo.complated_date = datetime.now() if todo.complete else None
-        db.session.commit()
-        print(f"{__name__}: Todo {todo.id} status changed to {todo.complete}")
-    return _redirect_to_back()
+    todo = Todo.query.get_or_404(todo_id)
+    todo.complete = not todo.complete
+    todo.complated_date = datetime.now() if todo.complete else None
+    db.session.commit()
+    return redirect_back()
 
 @main.route("/todo/<int:todo_id>/delete")
 def delete_todo(todo_id):
-    todo = Todo.query.filter_by(id=todo_id).first()
-    if todo:
-        db.session.delete(todo)
-        db.session.commit()
-        print(f"{__name__}: Todo {todo.id} deleted")
-    return _redirect_to_back()
+    todo = Todo.query.get_or_404(todo_id)
+    db.session.delete(todo)
+    db.session.commit()
+    return redirect_back()
 
 @main.route("/preferences", methods=["GET"])
 def update_preferences():
-    prefs = _get_prefs()
-    prefs.theme = request.args.get("theme") or prefs.theme
-    prefs.sorting = request.args.get("sort") or prefs.sorting
+    g.prefs.theme = request.args.get("theme") or g.prefs.theme
+    g.prefs.sorting = request.args.get("sort") or g.prefs.sorting
     db.session.commit()
-    print(f"{__name__}: Preferences updated to theme={prefs.theme}, sorting={prefs.sorting}")
-    return _redirect_to_back()
+    return redirect_back()
+
+# --- ERROR HANDLERS ---
 
 @main.app_errorhandler(404)
 def page_not_found(e):

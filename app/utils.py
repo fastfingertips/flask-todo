@@ -1,13 +1,9 @@
-from flask import request, url_for
+from flask import request, url_for, redirect
 
 def get_referer_or_default(default='main.index'):
-    """
-    Returns the Referer URL if available, otherwise redirects to a default URL.
-    :param default: The default route to redirect to if Referer is not available.
-    :return: The Referer URL or the default route URL.
-    """
-    referer = request.headers.get("Referer")
-    if referer:
-        return referer
-    else:
-        return url_for(default)
+    """Returns the HTTP referer or a default URL."""
+    return request.referrer or url_for(default)
+
+def redirect_back(default='main.index'):
+    """Redirects back to the previous page or a default route."""
+    return redirect(get_referer_or_default(default))
