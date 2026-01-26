@@ -6,11 +6,9 @@ from app import db
 
 main = Blueprint('main', __name__)
 
-# --- REQUEST HOOKS ---
-
 @main.before_app_request
 def load_preferences():
-    """Load or initialize user preferences into flask.g before every request."""
+    """Load or initialize user preferences."""
     if 'prefs' not in g:
         prefs = Preferences.query.first()
         if not prefs:
@@ -21,18 +19,12 @@ def load_preferences():
 
 @main.app_context_processor
 def inject_preferences():
-    """Context processor to make theme/sorting globally available in templates."""
     return {"theme": g.prefs.theme, "sorting": g.prefs.sorting}
-
-# --- VIEWS ---
 
 @main.route("/")
 def index(): 
-    # Dynamically sort based on preferences
     todos = Todo.query.order_by(getattr(Todo.created_date, g.prefs.sorting)()).all()
     return render_template("index.html", todos=todos)
-
-# --- ACTIONS ---
 
 @main.route("/add/todo", methods=["POST"])
 def add_todo():
@@ -76,8 +68,6 @@ def update_preferences():
     db.session.commit()
     flash("Preferences updated.", "secondary")
     return redirect_back()
-
-# --- ERROR HANDLERS ---
 
 @main.app_errorhandler(404)
 def page_not_found(e):

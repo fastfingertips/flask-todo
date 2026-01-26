@@ -106,7 +106,6 @@ body {
   background-color: rgba(110, 118, 129, 0.1) !important;
 }
 
-/* Ensure borders look sharp */
 .app-table-wrapper table td, .app-table-wrapper table th {
   border-bottom: 1px solid var(--app-border);
 }
@@ -179,7 +178,6 @@ body {
   outline: none;
 }
 
-/* Empty State Styling */
 .empty-state {
   padding: 80px 20px;
   text-align: center;
